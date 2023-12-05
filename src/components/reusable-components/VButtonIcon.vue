@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  inheritAttrs: false
-}
-</script>
-
 <script setup lang="ts">
 withDefaults(
   defineProps<{
@@ -21,7 +15,6 @@ const emit = defineEmits<{
 
 <template>
   <button
-    v-bind="$attrs"
     type="button"
     class="grid h-8 w-8 place-items-center rounded-full hover:cursor-pointer hover:opacity-60 active:opacity-80 disabled:pointer-events-none disabled:opacity-50"
     :disabled="disabled"
@@ -30,5 +23,3 @@ const emit = defineEmits<{
     <slot></slot>
   </button>
 </template>
-
-<style scoped></style>
