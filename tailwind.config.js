@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         'weather-primary': '#261972',
-        'weather-secondary': '#3725a4'
+        'weather-secondary': '#0f172a'
       }
     },
     screens: {
