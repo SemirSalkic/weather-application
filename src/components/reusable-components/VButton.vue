@@ -50,7 +50,7 @@ const basic = computed(() => !props.color)
     <template v-if="hasIcon">
       <slot name="icon"> </slot>
     </template>
-    <LoadAnimation class="w-5 h-5" v-if="loading"></LoadAnimation>
+    <LoadAnimation v-if="loading" class="w-5 h-5"></LoadAnimation>
     <span v-else>
       {{ label }}
     </span>

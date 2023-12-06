@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-weather-secondary">
+  <main class="min-h-screen bg-weather-secondary">
     <NavigationBar />
     <RouterView />
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
