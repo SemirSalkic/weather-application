@@ -7,7 +7,8 @@ export const useLocationStore = defineStore('location', () => {
   const locations = ref<Location[] | null>(null)
   const locationsError = ref(false)
   async function fetchLocations(locationQuery: string, limit = 5) {
-    locations.value = null
+    $reset()
+    if (!locationQuery) return
     try {
       const res = await axios.get<Location[]>(
         `https://us1.locationiq.com/v1/autocomplete?q=${locationQuery}&tag=place%3Acity%2C%20place%3Atown%2C%20place%3Avillage&limit=${limit}&dedupe=1&key=${
@@ -22,5 +23,10 @@ export const useLocationStore = defineStore('location', () => {
     }
   }
 
-  return { locations, locationsError, fetchLocations }
+  function $reset() {
+    locations.value = null
+    locationsError.value = false
+  }
+
+  return { locations, locationsError, fetchLocations, $reset }
 })
