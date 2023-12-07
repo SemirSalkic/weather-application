@@ -5,7 +5,9 @@ import type { Location } from './types'
 
 export const useLocationStore = defineStore('location', () => {
   const locations = ref<Location[] | null>(null)
+  const selectedLocation = ref<Location | null>(null)
   const locationsError = ref(false)
+
   async function fetchLocations(locationQuery: string, limit = 5) {
     $reset()
     if (!locationQuery) return
@@ -25,8 +27,9 @@ export const useLocationStore = defineStore('location', () => {
 
   function $reset() {
     locations.value = null
+    selectedLocation.value = null
     locationsError.value = false
   }
 
-  return { locations, locationsError, fetchLocations, $reset }
+  return { locations, selectedLocation, locationsError, fetchLocations, $reset }
 })

@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import { useLocationStore } from '@/stores/location'
 import { onClickOutside } from '@vueuse/core'
+import type { Location } from '../stores/types'
 
 const locationStore = useLocationStore()
 const locationsQuery = ref('')
@@ -19,6 +20,13 @@ function fetchLocations() {
     return
   }
   locationStore.$reset()
+}
+
+function selectLocation(location: Location) {
+  locationStore.selectedLocation = location
+  console.log(locationStore.selectedLocation)
+
+  closeList.value = true
 }
 
 onClickOutside(target, () => (closeList.value = true))
@@ -53,6 +61,7 @@ onClickOutside(target, () => (closeList.value = true))
             v-for="location in locationStore.locations"
             :key="location.place_id"
             class="py-2 px-2 cursor-pointer border-2 hover:bg-weather-secondary/40 rounded-lg"
+            @click="selectLocation(location)"
           >
             {{ location.display_name }}
           </li>
