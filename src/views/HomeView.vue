@@ -1,18 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import router, { RouteName } from '@/router'
 import { useDebounceFn } from '@vueuse/core'
 import { useLocationStore } from '@/stores/location'
 import { onClickOutside } from '@vueuse/core'
-import type { Location } from '../stores/types'
+import type { Address, Location } from '../stores/types'
 
 const locationStore = useLocationStore()
 const locationsQuery = ref('')
 const target = ref()
 const closeList = ref(false)
 
-const debouncedGetLocations = useDebounceFn(() => {
-  locationStore.fetchLocations(locationsQuery.value)
-}, 500)
+const debouncedGetLocations = useDebounceFn(
+  () => locationStore.fetchLocations(locationsQuery.value),
+  500
+)
+
+function formatAddress(address: Address) {
+  const formattedAddress = [
+    address.name,
+    address.county || address.state,
+    address.country,
+    address.postcode || address.suburb
+  ]
+    .filter(Boolean)
+    .join(', ')
+  return formattedAddress
+}
 
 function fetchLocations() {
   if (locationsQuery.value.trim() !== '') {
@@ -22,11 +36,15 @@ function fetchLocations() {
   locationStore.$reset()
 }
 
-function selectLocation(location: Location) {
+function navigateToSelectedCity(location: Location) {
   locationStore.selectedLocation = location
-  console.log(locationStore.selectedLocation)
-
-  closeList.value = true
+  locationStore.locations = null
+  const country = location.address.country.replace(/\s/g, '-').toLocaleLowerCase()
+  const city = location.address.name.replace(/\s/g, '-').toLocaleLowerCase()
+  router.push({
+    name: RouteName.CityWeatherView,
+    params: { country: country, city: city }
+  })
 }
 
 onClickOutside(target, () => (closeList.value = true))
@@ -56,14 +74,14 @@ onClickOutside(target, () => (closeList.value = true))
         >
           No results found, please try another location.
         </p>
-        <ul v-else class="flex flex-col gap-1">
+        <ul v-else class="flex flex-col gap-2 px-1">
           <li
             v-for="location in locationStore.locations"
             :key="location.place_id"
             class="py-2 px-2 cursor-pointer border-2 hover:bg-weather-secondary/40 rounded-lg"
-            @click="selectLocation(location)"
+            @click="navigateToSelectedCity(location)"
           >
-            {{ location.display_name }}
+            {{ formatAddress(location.address) }}
           </li>
         </ul>
       </div>
