@@ -5,7 +5,7 @@
       <span>Time: {{ convertTimestampToDate(currentWeather?.dt) }}</span>
     </div>
     <div class="flex justify-around items-center w-full bg-weather-secondary px-4 py-4 rounded-lg">
-      <div class="flex flex-col">
+      <div class="flex flex-col items-center">
         <span class="text-4xl font-semibold"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
         >
@@ -25,12 +25,12 @@
           capitalizeFirstLetters(currentWeather?.weather[0].description)
         }}</span>
       </div>
-      <div class="flex flex-col">
-        <span class="text-sm">Humidity : {{ currentWeather?.main.humidity }}%</span>
-        <span class="text-sm">Wind Speed: {{ currentWeather?.wind.speed }} m/s</span>
-        <span class="text-sm">Pressure: {{ currentWeather?.main.pressure }} hPa</span>
-        <span class="text-sm">Visibility: {{ currentWeather?.visibility }} m</span>
+      <div class="flex flex-col items-center">
         <span class="text-sm">Clouds: {{ currentWeather?.clouds.all }}%</span>
+        <span class="text-sm">Humidity: {{ currentWeather?.main.humidity }}%</span>
+        <span class="text-sm">Visibility: {{ currentWeather?.visibility }}m</span>
+        <span class="text-sm">Pressure: {{ currentWeather?.main.pressure }}hPa</span>
+        <span class="text-sm">Wind Speed: {{ currentWeather?.wind.speed }}m/s</span>
       </div>
     </div>
   </div>
