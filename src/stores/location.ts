@@ -3,10 +3,12 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { Location } from './types'
 import { StorageSerializers, useLocalStorage } from '@vueuse/core'
+import { STORE_LOCATION, VITE_BASE_LOCATION_URL, VITE_LOCATIONIQ_API_KEY } from '@/util/const'
 
-export const useLocationStore = defineStore('location', () => {
+export const useLocationStore = defineStore(STORE_LOCATION, () => {
   const locations = ref<Location[] | null>(null)
   const locationsError = ref(false)
+  const selectedLocationName = useLocalStorage<string>('selectedLocationName', '')
 
   // Selected location is stored in local storage and serialized as JSON because when storing a null value
   // it gets stored as an empty string not as null, hence we use object serializer
@@ -19,11 +21,7 @@ export const useLocationStore = defineStore('location', () => {
     if (!locationQuery) return
     try {
       const res = await axios.get<Location[]>(
-        `${
-          import.meta.env.VITE_BASE_LOCATION_URL
-        }/autocomplete?q=${locationQuery}&tag=place%3Acity%2C%20place%3Atown%2C%20place%3Avillage&limit=${limit}&dedupe=1&key=${
-          import.meta.env.VITE_LOCATIONIQ_API_KEY
-        }`
+        `${VITE_BASE_LOCATION_URL}/autocomplete?q=${locationQuery}&tag=place%3Acity%2C%20place%3Atown%2C%20place%3Avillage&limit=${limit}&dedupe=1&key=${VITE_LOCATIONIQ_API_KEY}`
       )
       locations.value = res.data
       return res
@@ -40,5 +38,12 @@ export const useLocationStore = defineStore('location', () => {
     locationsError.value = false
   }
 
-  return { locations, selectedLocation, locationsError, fetchLocations, $reset }
+  return {
+    locations,
+    selectedLocationName,
+    selectedLocation,
+    locationsError,
+    fetchLocations,
+    $reset
+  }
 })

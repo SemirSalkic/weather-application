@@ -36,9 +36,10 @@ function fetchLocations() {
   locationStore.$reset()
 }
 
-function navigateToSelectedCity(location: Location) {
+function navigateToSelectedCity(location: Location, locationName: string) {
   locationStore.selectedLocation = location
   locationStore.locations = null
+  locationStore.selectedLocationName = locationName
   const country = location.address.country.replace(/\s/g, '-').toLocaleLowerCase()
   const city = location.address.name.replace(/\s/g, '-').toLocaleLowerCase()
   router.push({
@@ -79,7 +80,7 @@ onClickOutside(target, () => (closeList.value = true))
             v-for="location in locationStore.locations"
             :key="location.place_id"
             class="py-2 px-2 cursor-pointer border-2 hover:bg-weather-secondary/40 rounded-lg"
-            @click="navigateToSelectedCity(location)"
+            @click="navigateToSelectedCity(location, formatAddress(location.address))"
           >
             {{ formatAddress(location.address) }}
           </li>
