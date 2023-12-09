@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { SunIcon, InformationCircleIcon } from '@heroicons/vue/24/outline'
-import VButtonIcon from '@/components/reusable-components/VButtonIcon.vue'
-import VDialog from '@/components/reusable-components/VDialog.vue'
-import VButton from '@/components/reusable-components/VButton.vue'
+import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
+import VDialog from '@/components/action-components/VDialog.vue'
+import VButton from '@/components/action-components/VButton.vue'
 import AboutApplication from './AboutApplication.vue'
 import { RouteName } from '@/router'
 
