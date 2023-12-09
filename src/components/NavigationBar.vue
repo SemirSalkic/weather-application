@@ -13,24 +13,23 @@ const isDialogOpen = ref(false)
 
 <template>
   <header class="bg-weather-primary sticky top-0 shadow-lg">
-    <nav class="flex gap-6 items-center justify-between container text-white py-6">
-      <RouterLink :to="{ name: RouteName.Home }" class="flex items-center">
+    <nav class="flex items-center justify-between container text-white py-6">
+      <RouterLink :to="{ name: RouteName.Home }" class="flex items-center gap-2">
         <SunIcon class="w-7 h-7" />
-        <span class="ml-2 text-lg font-bold">Weather Application</span>
+        <span class="text-lg font-bold">Weather Application</span>
       </RouterLink>
       <VButtonIcon @click="isDialogOpen = true">
         <InformationCircleIcon class="w-7 h-7" />
       </VButtonIcon>
-
-      <VDialog v-model="isDialogOpen" class="px-4 py-6 flex flex-col gap-4 max-w-5xl">
-        <AboutApplication></AboutApplication>
-        <VButton
-          class="rounded-md w-52 self-center"
-          color="neutral"
-          label="Close"
-          @click="isDialogOpen = false"
-        ></VButton>
-      </VDialog>
     </nav>
+    <VDialog v-model="isDialogOpen" class="px-4 py-6 flex flex-col gap-4 max-w-5xl">
+      <AboutApplication></AboutApplication>
+      <VButton
+        class="rounded-md w-52 self-center"
+        color="neutral"
+        label="Close"
+        @click="isDialogOpen = false"
+      ></VButton>
+    </VDialog>
   </header>
 </template>
