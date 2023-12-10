@@ -11,10 +11,13 @@ import { useDebounceFn } from '@vueuse/core'
 import { useLocationStore } from '@/stores/location'
 import { onClickOutside } from '@vueuse/core'
 import type { Address, Location } from '../stores/types'
+import { storeToRefs } from 'pinia'
 
 const isDialogOpen = ref(false)
 
 const locationStore = useLocationStore()
+const { locations, locationsError, selectedLocation, selectedLocationName } =
+  storeToRefs(locationStore)
 const locationsQuery = ref('')
 const target = ref()
 const closeList = ref(false)
@@ -45,9 +48,9 @@ function fetchLocations() {
 }
 
 function navigateToSelectedCity(location: Location, locationName: string) {
-  locationStore.selectedLocation = location
-  locationStore.locations = null
-  locationStore.selectedLocationName = locationName
+  selectedLocation.value = location
+  locations.value = null
+  selectedLocationName.value = locationName
   locationsQuery.value = locationName
   const country = location.address.country.replace(/\s/g, '-').toLocaleLowerCase()
   const city = location.address.name.replace(/\s/g, '-').toLocaleLowerCase()
@@ -78,21 +81,16 @@ onClickOutside(target, () => (closeList.value = true))
             @click="closeList = false"
           />
           <div
-            v-if="(locationStore.locations || locationStore.locationsError) && !closeList"
+            v-if="(locations || locationsError) && !closeList"
             class="absolute bg-weather-primary rounded-lg text-white w-full shadow-md py-2 px-1 mt-2 border-2 border-weather-secondary"
           >
-            <p v-if="locationStore.locationsError" class="py-2 px-2">
-              There was an error, please try again.
-            </p>
-            <p
-              v-if="!locationStore.locationsError && locationStore.locations?.length === 0"
-              class="py-2 px-2"
-            >
+            <p v-if="locationsError" class="py-2 px-2">There was an error, please try again.</p>
+            <p v-if="!locationsError && locations?.length === 0" class="py-2 px-2">
               No results found, please try another location.
             </p>
             <ul v-else class="flex flex-col gap-2 px-1">
               <li
-                v-for="location in locationStore.locations"
+                v-for="location in locations"
                 :key="location.place_id"
                 class="py-2 px-2 cursor-pointer border-2 hover:bg-weather-secondary/40 rounded-lg"
                 @click="navigateToSelectedCity(location, formatAddress(location.address))"
