@@ -79,14 +79,16 @@ function navigateToSelectedCity() {
       </div>
       <span>Time: {{ timestampToDateTime(currentWeather?.dt) }}</span>
     </div>
-    <div class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4">
+    <div
+      class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4 text-center"
+    >
       <div class="flex flex-col items-center">
         <span class="text-4xl font-semibold"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
         >
-        <span>
-          Min: {{ Math.round(currentWeather?.main.temp_min || 0) }}°C Max:
-          {{ Math.round(currentWeather?.main.temp_max || 0) }}°C
+        <span class="flex flex-col">
+          <span>Min: {{ Math.round(currentWeather?.main.temp_min || 0) }}°C</span>
+          <span>Max: {{ Math.round(currentWeather?.main.temp_max || 0) }}°C</span>
         </span>
         <span>Feels like: {{ Math.round(currentWeather?.main.feels_like || 0) }}°C</span>
       </div>
