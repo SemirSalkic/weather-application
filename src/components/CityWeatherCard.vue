@@ -1,30 +1,68 @@
 <script setup lang="ts">
 import { convertTimestampToDate, capitalizeFirstLetters } from '../util/index'
 import type { WeatherData } from '@/stores/types'
+import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
+import ConfirmationDialog from '@/components/action-components/ConfirmationDialog.vue'
+import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/vue/24/outline'
+import { useWeatherStore } from '@/stores/weather'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
 
-defineProps<{
-  selectedLocationName: string
-  currentWeather: WeatherData | null
-}>()
+const props = withDefaults(
+  defineProps<{
+    currentWeather: WeatherData
+    selectedLocationName: string
+    isClickable?: boolean
+  }>(),
+  {
+    isClickable: false
+  }
+)
 
-//TODO: Dodaj ikone + ili - u zavisnosti da li se ovo vec nalazi u sacuvanoj listi []
+const weatherStore = useWeatherStore()
+const { locationWeatherList } = storeToRefs(weatherStore)
+
+const removeListItemDialog = ref(false)
+
+const isInLocationWeatherList = computed(() => {
+  if (!props.currentWeather) return false
+  return locationWeatherList.value.some(
+    (item) => item.cityWeatherData.id === props.currentWeather?.id
+  )
+})
+
+function removeListItem() {
+  weatherStore.removeLocationWeatherItem(props.currentWeather.id)
+  removeListItemDialog.value = false
+}
 </script>
 
 <template>
-  <div class="bg-weather-primary container mx-auto rounded-lg px-4 py-4">
-    <div class="flex flex-col mb-2 bg-weather-secondary px-4 py-4 rounded-lg">
+  <div v-if="currentWeather" class="bg-weather-primary container mx-auto rounded-lg px-4 py-4">
+    <div class="relative flex flex-col mb-2 bg-weather-secondary px-4 py-4 rounded-lg">
       <span class="text-xl font-bold">{{ selectedLocationName }}</span>
       <span>Time: {{ convertTimestampToDate(currentWeather?.dt) }}</span>
+      <div class="absolute top-3 right-2 flex">
+        <VButtonIcon
+          v-if="!isInLocationWeatherList"
+          @click="weatherStore.addLocationWeatherItem(currentWeather, selectedLocationName)"
+        >
+          <PlusCircleIcon class="h-8 w-8"></PlusCircleIcon>
+        </VButtonIcon>
+        <VButtonIcon v-else @click="removeListItemDialog = true">
+          <MinusCircleIcon class="h-8 w-8 hover:text-red-600"></MinusCircleIcon>
+        </VButtonIcon>
+      </div>
     </div>
     <div class="flex justify-around items-center w-full bg-weather-secondary px-4 py-4 rounded-lg">
       <div class="flex flex-col items-center">
         <span class="text-4xl font-semibold"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
         >
-        <div>
-          {{ Math.round(currentWeather?.main.temp_min || 0) }}°C -
+        <span>
+          Min: {{ Math.round(currentWeather?.main.temp_min || 0) }}°C Max:
           {{ Math.round(currentWeather?.main.temp_max || 0) }}°C
-        </div>
+        </span>
         <span>Feels like: {{ Math.round(currentWeather?.main.feels_like || 0) }}°C</span>
       </div>
       <div class="flex flex-col items-center">
@@ -46,4 +84,15 @@ defineProps<{
       </div>
     </div>
   </div>
+
+  <ConfirmationDialog
+    v-model="removeListItemDialog"
+    title="Are you sure you want to remove this location from your favorites?"
+    @confirm="removeListItem()"
+    @cancel="removeListItemDialog = false"
+  >
+    <template #content>
+      <span>Location: {{ selectedLocationName }}</span>
+    </template>
+  </ConfirmationDialog>
 </template>
