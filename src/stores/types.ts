@@ -93,11 +93,11 @@ export interface Forecast {
   cod: string
   message: number
   cnt: number
-  list: ForecastList[]
+  list: ForecastListItem[]
   city: City
 }
 
-export interface ForecastList {
+export interface ForecastListItem {
   dt: number
   main: MainForecast
   weather: Weather[]
