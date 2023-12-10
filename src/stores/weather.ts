@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Forecast, WeatherData, WeatherDataWithLocation } from './types'
+import type { Forecast, WeatherData, WeatherDataWithLocation, Location } from './types'
 import { STORE_WEATHER, VITE_BASE_WEATHER_URL, VITE_OPENWEATHER_API_KEY } from '@/util/const'
 import { useLocalStorage } from '@vueuse/core'
 
@@ -19,8 +19,12 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
     )
   }
 
-  function addLocationWeatherItem(cityWeatherData: WeatherData, locationName: string) {
-    const item = { cityWeatherData, locationName }
+  function addLocationWeatherItem(
+    locationData: Location,
+    cityWeatherData: WeatherData,
+    locationName: string
+  ) {
+    const item = { locationData, cityWeatherData, locationName }
     locationWeatherList.value?.push(item)
   }
 

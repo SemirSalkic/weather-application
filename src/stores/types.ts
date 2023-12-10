@@ -142,6 +142,7 @@ export interface City {
 }
 
 export interface WeatherDataWithLocation {
+  locationData: Location
   cityWeatherData: WeatherData
   locationName: string
 }
