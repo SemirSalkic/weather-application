@@ -64,17 +64,17 @@ onClickOutside(target, () => (closeList.value = true))
 </script>
 
 <template>
-  <header class="bg-weather-primary sticky top-0 shadow-lg z-10">
-    <nav class="container text-white py-6 flex justify-between items-center gap-4">
+  <header class="sticky top-0 z-10 bg-weather-primary shadow-lg">
+    <nav class="container flex items-center justify-between gap-4 py-6 text-white">
       <div class="flex flex-1 items-center gap-6 lg:flex-none lg:basis-3/4">
         <RouterLink :to="{ name: RouteName.Home }" class="flex items-center gap-2">
-          <SunIcon class="w-7 h-7 text-yellow-400" />
-          <span class="text-lg font-bold hidden md:block">Weather Application</span>
+          <SunIcon class="h-7 w-7 text-yellow-400" />
+          <span class="hidden text-lg font-bold md:block">Weather Application</span>
         </RouterLink>
         <div ref="target" class="relative flex-1">
           <input
             v-model="locationsQuery"
-            class="py-2 text-white px-2 w-full bg-transparent border-2 rounded-lg focus:border-weather-secondary focus:outline-none"
+            class="w-full rounded-lg border-2 bg-transparent px-2 py-2 text-white focus:border-weather-secondary focus:outline-none"
             type="text"
             placeholder="Enter a location"
             @input="fetchLocations"
@@ -82,17 +82,17 @@ onClickOutside(target, () => (closeList.value = true))
           />
           <div
             v-if="(locations || locationsError) && !closeList"
-            class="absolute bg-weather-primary rounded-lg text-white w-full shadow-md py-2 px-1 mt-2 border-2 border-weather-secondary"
+            class="absolute mt-2 w-full rounded-lg border-2 border-weather-secondary bg-weather-primary px-1 py-2 text-white shadow-md"
           >
-            <p v-if="locationsError" class="py-2 px-2">There was an error, please try again.</p>
-            <p v-if="!locationsError && locations?.length === 0" class="py-2 px-2">
+            <p v-if="locationsError" class="px-2 py-2">There was an error, please try again.</p>
+            <p v-if="!locationsError && locations?.length === 0" class="px-2 py-2">
               No results found, please try another location.
             </p>
             <ul v-else class="flex flex-col gap-2 px-1">
               <li
                 v-for="location in locations"
                 :key="location.place_id"
-                class="py-2 px-2 cursor-pointer border-2 hover:bg-weather-secondary/40 rounded-lg"
+                class="cursor-pointer rounded-lg border-2 px-2 py-2 hover:bg-weather-secondary/40"
                 @click="navigateToSelectedCity(location, formatAddress(location.address))"
               >
                 {{ formatAddress(location.address) }}
@@ -102,13 +102,13 @@ onClickOutside(target, () => (closeList.value = true))
         </div>
       </div>
       <VButtonIcon @click="isDialogOpen = true">
-        <InformationCircleIcon class="w-7 h-7" />
+        <InformationCircleIcon class="h-7 w-7" />
       </VButtonIcon>
     </nav>
-    <VDialog v-model="isDialogOpen" class="px-4 py-6 flex flex-col gap-4 max-w-5xl">
+    <VDialog v-model="isDialogOpen" class="flex max-w-5xl flex-col gap-4 px-4 py-6">
       <AboutApplication></AboutApplication>
       <VButton
-        class="rounded-md w-52 self-center"
+        class="w-52 self-center rounded-md"
         color="neutral"
         label="Close"
         @click="isDialogOpen = false"

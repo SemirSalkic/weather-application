@@ -49,14 +49,14 @@ watch(selectedLocationName, async () => {
 </script>
 
 <template>
-  <div class="bg-weather-secondary py-8 px-4 text-white flex flex-col items-center">
+  <div class="flex flex-col items-center bg-weather-secondary px-4 py-8 text-white">
     <CityWeatherCard
       v-if="currentWeatherData && selectedLocationName"
       :selected-location-name="selectedLocationName"
       :current-weather="currentWeatherData"
     />
     <div v-if="forecastData">
-      <h3 class="text-xl font-semibold mb-4">5-Day Forecast</h3>
+      <h3 class="mb-4 text-xl font-semibold">5-Day Forecast</h3>
       <ul>
         <li v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
           <p>{{ indexForecast }}</p>

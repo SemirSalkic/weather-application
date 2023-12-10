@@ -34,7 +34,7 @@ const showDialog = computed({
 <template>
   <VDialog v-model="showDialog" :static="true">
     <div class="grid gap-4">
-      <span class="mb-2 text-lg font-medium text-black pr-6">
+      <span class="mb-2 pr-6 text-lg font-medium text-black">
         {{ title }}
       </span>
       <slot name="content"></slot>
@@ -46,7 +46,7 @@ const showDialog = computed({
           Cancel
         </button>
         <button
-          class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-opacity-80 disabled:pointer-events-none disabled:opacity-50 active:bg-opacity-70"
+          class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-opacity-80 active:bg-opacity-70 disabled:pointer-events-none disabled:opacity-50"
           :disabled="disabledConfirm"
           @click="emit('confirm')"
         >

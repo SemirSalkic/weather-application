@@ -40,12 +40,12 @@ function removeListItem() {
 <template>
   <div
     v-if="currentWeather"
-    class="bg-weather-primary container mx-auto rounded-lg px-4 py-4 text-white"
+    class="container mx-auto rounded-lg bg-weather-primary px-4 py-4 text-white"
   >
-    <div class="relative flex flex-col mb-2 bg-weather-secondary px-4 py-4 rounded-lg">
+    <div class="relative mb-2 flex flex-col rounded-lg bg-weather-secondary px-4 py-4">
       <span class="text-xl font-bold">{{ selectedLocationName }}</span>
       <span>Time: {{ convertTimestampToDate(currentWeather?.dt) }}</span>
-      <div class="absolute top-3 right-2 flex">
+      <div class="absolute right-2 top-3 flex">
         <VButtonIcon
           v-if="!isInLocationWeatherList"
           @click="weatherStore.addLocationWeatherItem(currentWeather, selectedLocationName)"
@@ -57,7 +57,7 @@ function removeListItem() {
         </VButtonIcon>
       </div>
     </div>
-    <div class="flex justify-around items-center w-full bg-weather-secondary px-4 py-4 rounded-lg">
+    <div class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4">
       <div class="flex flex-col items-center">
         <span class="text-4xl font-semibold"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
@@ -70,7 +70,7 @@ function removeListItem() {
       </div>
       <div class="flex flex-col items-center">
         <img
-          class="w-20 h-auto"
+          class="h-auto w-20"
           :src="`http://openweathermap.org/img/wn/${currentWeather?.weather[0].icon}.png`"
           :alt="currentWeather?.weather[0].description"
         />

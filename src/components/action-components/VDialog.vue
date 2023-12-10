@@ -68,7 +68,7 @@ const emit = defineEmits<{
               class="relative min-w-[200px] transform rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all sm:min-w-[450px]"
               v-bind="$attrs"
             >
-              <div v-if="!static" class="absolute top-1 right-1 z-10">
+              <div v-if="!static" class="absolute right-1 top-1 z-10">
                 <VButtonIcon @click="showDialog = false">
                   <XMarkIcon class="h-5 w-5"></XMarkIcon>
                 </VButtonIcon>
