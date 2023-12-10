@@ -51,8 +51,9 @@ watch(selectedLocationName, async () => {
 <template>
   <div class="flex flex-col items-center bg-weather-secondary px-4 py-8 text-white">
     <CityWeatherCard
-      v-if="currentWeatherData && selectedLocationName"
-      :selected-location-name="selectedLocationName"
+      v-if="currentWeatherData && selectedLocation && selectedLocationName"
+      :location="selectedLocation"
+      :location-name="selectedLocationName"
       :current-weather="currentWeatherData"
     />
     <div v-if="forecastData">
