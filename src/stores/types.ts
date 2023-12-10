@@ -140,3 +140,8 @@ export interface City {
   sunrise: number
   sunset: number
 }
+
+export interface WeatherDataWithLocation {
+  cityWeatherData: WeatherData
+  locationName: string
+}
