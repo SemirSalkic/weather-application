@@ -38,7 +38,10 @@ function removeListItem() {
 </script>
 
 <template>
-  <div v-if="currentWeather" class="bg-weather-primary container mx-auto rounded-lg px-4 py-4">
+  <div
+    v-if="currentWeather"
+    class="bg-weather-primary container mx-auto rounded-lg px-4 py-4 text-white"
+  >
     <div class="relative flex flex-col mb-2 bg-weather-secondary px-4 py-4 rounded-lg">
       <span class="text-xl font-bold">{{ selectedLocationName }}</span>
       <span>Time: {{ convertTimestampToDate(currentWeather?.dt) }}</span>
