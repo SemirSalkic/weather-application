@@ -6,9 +6,22 @@
  * helping to keep the codebase DRY (Don't Repeat Yourself) and making it easier
  * to make changes in one place.
  */
-export const convertTimestampToDate = (timestamp: number | undefined) => {
+export const timestampToDate = (timestamp: number | undefined): string => {
   if (!timestamp) return ''
-  return new Date(timestamp * 1000).toLocaleString('en-US', {
+  const date = new Date(timestamp * 1000)
+  return date.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })
+}
+
+export const timestampToTime = (timestamp: number | undefined): string => {
+  if (!timestamp) return ''
+  const date = new Date(timestamp * 1000)
+  return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false })
+}
+
+export const timestampToDateTime = (timestamp: number | undefined): string => {
+  if (!timestamp) return ''
+  const date = new Date(timestamp * 1000)
+  return date.toLocaleString('en-US', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
@@ -16,6 +29,11 @@ export const convertTimestampToDate = (timestamp: number | undefined) => {
     minute: 'numeric',
     hour12: false
   })
+}
+
+export const formatDate = (input: string | undefined): string => {
+  const date = new Date(input)
+  return date.toLocaleDateString('en-US')
 }
 
 export const capitalizeFirstLetters = (str: string | undefined): string => {
