@@ -8,9 +8,15 @@ defineOptions({
   inheritAttrs: false
 })
 
-const props = defineProps<{
+export interface VDialogProps {
   modelValue: boolean
-}>()
+  static?: boolean
+}
+
+const props = withDefaults(defineProps<VDialogProps>(), {
+  modelValue: false,
+  static: false
+})
 
 const showDialog = computed({
   get() {
@@ -28,7 +34,12 @@ const emit = defineEmits<{
 
 <template>
   <TransitionRoot appear :show="showDialog" as="template">
-    <Dialog as="div" class="relative z-10" @close="showDialog = false">
+    <Dialog
+      as="div"
+      :static="static"
+      class="relative z-10"
+      @close="!static ? (showDialog = false) : null"
+    >
       <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
       <TransitionChild
         as="template"
@@ -57,7 +68,7 @@ const emit = defineEmits<{
               class="relative min-w-[200px] transform rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all sm:min-w-[450px]"
               v-bind="$attrs"
             >
-              <div class="absolute top-1 right-1 z-10">
+              <div v-if="!static" class="absolute top-1 right-1 z-10">
                 <VButtonIcon @click="showDialog = false">
                   <XMarkIcon class="h-5 w-5"></XMarkIcon>
                 </VButtonIcon>
