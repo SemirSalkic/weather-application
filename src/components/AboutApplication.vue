@@ -4,13 +4,13 @@ import { PlusCircleIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <div class="p-6">
-    <p class="text-3xl font-semibold text-center">Welcome to our weather application</p>
+    <p class="text-center text-3xl font-semibold">Welcome to our weather application</p>
     <p class="mt-4 text-lg">
       This weather application, built with Vue 3, TypeScript, and Tailwind, offers a user-friendly
       platform to keep track of the weather conditions in your favorite cities.
     </p>
     <p class="mt-4 text-2xl font-semibold">How it Works:</p>
-    <ol class="list-decimal list-inside mt-2 text-lg flex flex-col gap-2">
+    <ol class="mt-2 flex list-inside list-decimal flex-col gap-2 text-lg">
       <li>
         <strong>City Search:</strong> Begin by typing the name of the city you're interested into
         the search bar. Our application will provide a list of matching results.
@@ -22,7 +22,7 @@ import { PlusCircleIcon } from '@heroicons/vue/24/outline'
       </li>
       <li>
         <strong>City Tracking:</strong> To keep an eye on the weather of a particular city, click on
-        the <PlusCircleIcon class="w-6 h-6 inline"></PlusCircleIcon> icon located at the top right
+        the <PlusCircleIcon class="inline h-6 w-6"></PlusCircleIcon> icon located at the top right
         corner of the page. This action will add the city to your personalized list on the home
         page, allowing you to access its weather information anytime.
       </li>
