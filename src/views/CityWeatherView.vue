@@ -4,10 +4,10 @@ import { useLocationStore } from '@/stores/location'
 import type { ForecastList } from '@/stores/types'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, watch } from 'vue'
 
-const { fetchWeatherData, fetchForecastWeatherData } = useWeatherStore()
-const { forecastData, currentWeatherData } = storeToRefs(useWeatherStore())
+const weatherStore = useWeatherStore()
+const { forecastData, currentWeatherData } = storeToRefs(weatherStore)
 const { selectedLocation, selectedLocationName } = storeToRefs(useLocationStore())
 
 // Computed property to group forecast items by date
@@ -28,12 +28,23 @@ const sortedForecast = computed(() => {
   return {} // Return an empty object if forecast data is not available
 })
 
-onMounted(async () => {
-  await fetchWeatherData(selectedLocation.value?.lat || '', selectedLocation.value?.lon || '')
-  await fetchForecastWeatherData(
+async function fetchWeatherAndForecastData() {
+  await weatherStore.fetchWeatherData(
     selectedLocation.value?.lat || '',
     selectedLocation.value?.lon || ''
   )
+  await weatherStore.fetchForecastWeatherData(
+    selectedLocation.value?.lat || '',
+    selectedLocation.value?.lon || ''
+  )
+}
+
+onMounted(async () => {
+  await fetchWeatherAndForecastData()
+})
+
+watch(selectedLocationName, async () => {
+  await fetchWeatherAndForecastData()
 })
 </script>
 
