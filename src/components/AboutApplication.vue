@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlusCircleIcon } from '@heroicons/vue/24/outline'
+import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -23,13 +23,15 @@ import { PlusCircleIcon } from '@heroicons/vue/24/outline'
       <li>
         <strong>City Tracking:</strong> To keep an eye on the weather of a particular city, click on
         the <PlusCircleIcon class="inline h-6 w-6"></PlusCircleIcon> icon located at the top right
-        corner of the page. This action will add the city to your personalized list on the home
-        page, allowing you to access its weather information anytime.
+        corner of the current weather card. This action will add the city to your favorites on the
+        home page, allowing you to access its weather information anytime.
       </li>
       <li>
-        <strong>Removing a City:</strong> If you decide to stop tracking a city, simply go to the
-        home page, select the city, and scroll down to the bottom of the page. You'll find an option
-        to remove the city from your list.
+        <strong>Removing a City:</strong> If you decide to stop tracking a city, just navigate to
+        the home page and look for the city card of the city you want to remove. In the top right
+        corner of the city card, you'll see a
+        <MinusCircleIcon class="inline h-6 w-6" h-6 w-6”></MinusCircleIcon> icon. Simply click on
+        this icon to stop tracking the city.
       </li>
     </ol>
     <p class="mt-6 text-lg">
