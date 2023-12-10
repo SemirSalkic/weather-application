@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { convertTimestampToDate, capitalizeFirstLetters } from '../util/index'
+import type { WeatherData } from '@/stores/types'
+
+defineProps<{
+  selectedLocationName: string
+  currentWeather: WeatherData | null
+}>()
+
+//TODO: Dodaj ikone + ili - u zavisnosti da li se ovo vec nalazi u sacuvanoj listi []
+</script>
+
 <template>
   <div class="bg-weather-primary container mx-auto rounded-lg px-4 py-4">
     <div class="flex flex-col mb-2 bg-weather-secondary px-4 py-4 rounded-lg">
@@ -35,15 +47,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { convertTimestampToDate, capitalizeFirstLetters } from '../util/index'
-import type { WeatherData } from '@/stores/types'
-
-defineProps<{
-  selectedLocationName: string
-  currentWeather: WeatherData | null
-}>()
-
-//TODO: Dodaj ikone + ili - u zavisnosti da li se ovo vec nalazi u sacuvanoj listi []
-</script>

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { PlusCircleIcon } from '@heroicons/vue/24/outline'
+</script>
+
 <template>
   <div class="p-6">
     <p class="text-3xl font-semibold text-center">Welcome to our weather application</p>
@@ -34,7 +38,3 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { PlusCircleIcon } from '@heroicons/vue/24/outline'
-</script>

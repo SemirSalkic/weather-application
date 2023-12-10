@@ -1,28 +1,3 @@
-<template>
-  <div class="bg-weather-secondary py-8 px-4 text-white flex flex-col items-center">
-    <CityWeatherCard
-      v-if="currentWeatherData && selectedLocationName"
-      :selected-location-name="selectedLocationName"
-      :current-weather="currentWeatherData"
-    />
-    <div v-if="forecastData">
-      <h3 class="text-xl font-semibold mb-4">5-Day Forecast</h3>
-      <ul>
-        <li v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
-          <p>{{ indexForecast }}</p>
-          <ul>
-            <li v-for="(subItem, index) in forecast" :key="index">
-              {{ subItem.dt_txt }} - {{ Math.round(subItem.main.temp) }} °C -
-              {{ subItem.weather[0].description }} - Feels like:
-              {{ Math.round(subItem.main.feels_like) }} °C
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import CityWeatherCard from '@/components/CityWeatherCard.vue'
 import { useLocationStore } from '@/stores/location'
@@ -61,3 +36,28 @@ onMounted(async () => {
   )
 })
 </script>
+
+<template>
+  <div class="bg-weather-secondary py-8 px-4 text-white flex flex-col items-center">
+    <CityWeatherCard
+      v-if="currentWeatherData && selectedLocationName"
+      :selected-location-name="selectedLocationName"
+      :current-weather="currentWeatherData"
+    />
+    <div v-if="forecastData">
+      <h3 class="text-xl font-semibold mb-4">5-Day Forecast</h3>
+      <ul>
+        <li v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
+          <p>{{ indexForecast }}</p>
+          <ul>
+            <li v-for="(subItem, index) in forecast" :key="index">
+              {{ subItem.dt_txt }} - {{ Math.round(subItem.main.temp) }} °C -
+              {{ subItem.weather[0].description }} - Feels like:
+              {{ Math.round(subItem.main.feels_like) }} °C
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
