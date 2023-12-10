@@ -44,7 +44,8 @@ function fetchLocations() {
     debouncedGetLocations()
     return
   }
-  locationStore.$reset()
+  locations.value = null
+  locationsError.value = false
 }
 
 function navigateToSelectedCity(location: Location, locationName: string) {
