@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { convertTimestampToDate, capitalizeFirstLetters } from '../util/index'
+import { timestampToDateTime, capitalizeFirstLetters } from '../util/index'
 import type { WeatherData, Location } from '@/stores/types'
 import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
 import ConfirmationDialog from '@/components/action-components/ConfirmationDialog.vue'
@@ -77,7 +77,7 @@ function navigateToSelectedCity() {
           </VButtonIcon>
         </div>
       </div>
-      <span>Time: {{ convertTimestampToDate(currentWeather?.dt) }}</span>
+      <span>Time: {{ timestampToDateTime(currentWeather?.dt) }}</span>
     </div>
     <div class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4">
       <div class="flex flex-col items-center">
