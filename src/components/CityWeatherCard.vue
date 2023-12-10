@@ -15,7 +15,7 @@ const props = withDefaults(
     isClickable?: boolean
   }>(),
   {
-    isClickable: false
+    isClickable: false //TODO: Napravi da se moze kliknuti na karticu
   }
 )
 
