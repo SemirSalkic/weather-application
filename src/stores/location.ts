@@ -17,11 +17,11 @@ export const useLocationStore = defineStore(STORE_LOCATION, () => {
   })
 
   async function fetchLocations(locationQuery: string, limit = 5) {
-    $reset()
+    locationsError.value = false
     if (!locationQuery) return
     try {
       const res = await axios.get<Location[]>(
-        `${VITE_BASE_LOCATION_URL}/autocomplete?q=${locationQuery}&tag=place%3Acity%2C%20place%3Atown%2C%20place%3Avillage&limit=${limit}&dedupe=1&key=${VITE_LOCATIONIQ_API_KEY}`
+        `${VITE_BASE_LOCATION_URL}/autocomplete?q=${locationQuery}&tag=place%3Aprovince%2Cplace%3Acity%2Cplace%3Atown%2Cplace%3Avillage&limit=${limit}&dedupe=1&key=${VITE_LOCATIONIQ_API_KEY}`
       )
       locations.value = res.data
       return res
