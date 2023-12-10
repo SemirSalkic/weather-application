@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import CityWeatherCard from '@/components/CityWeatherCard.vue'
+import ForecastItem from '@/components/ForecastItem.vue'
 import { useLocationStore } from '@/stores/location'
-import type { ForecastList } from '@/stores/types'
+import type { ForecastListItem } from '@/stores/types'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
 import { onMounted, computed, watch } from 'vue'
+import { formatDate } from '@/util'
 
 const weatherStore = useWeatherStore()
 const { forecastData, currentWeatherData } = storeToRefs(weatherStore)
@@ -15,7 +17,7 @@ const sortedForecast = computed(() => {
   if (forecastData.value?.list) {
     // Reduce the forecast list to group items by date
     return forecastData.value.list.reduce(
-      (acc: Record<string, ForecastList[]>, curr: ForecastList) => {
+      (acc: Record<string, ForecastListItem[]>, curr: ForecastListItem) => {
         // Extract the date part from the datetime string
         const date = curr.dt_txt.split(' ')[0]
         // Update the accumulator with the current forecast item
@@ -49,27 +51,20 @@ watch(selectedLocationName, async () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center bg-weather-secondary px-4 py-8 text-white">
+  <div class="flex flex-col items-center gap-4 bg-weather-secondary px-4 py-8 text-white">
     <CityWeatherCard
       v-if="currentWeatherData && selectedLocation && selectedLocationName"
       :location="selectedLocation"
       :location-name="selectedLocationName"
       :current-weather="currentWeatherData"
     />
-    <div v-if="forecastData">
-      <h3 class="mb-4 text-xl font-semibold">5-Day Forecast</h3>
-      <ul>
-        <li v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
-          <p>{{ indexForecast }}</p>
-          <ul>
-            <li v-for="(subItem, index) in forecast" :key="index">
-              {{ subItem.dt_txt }} - {{ Math.round(subItem.main.temp) }} °C -
-              {{ subItem.weather[0].description }} - Feels like:
-              {{ Math.round(subItem.main.feels_like) }} °C
-            </li>
-          </ul>
-        </li>
-      </ul>
+    <div v-if="forecastData" class="container">
+      <div v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
+        <ForecastItem :title="formatDate(indexForecast)"></ForecastItem>
+        <div v-for="(subItem, index) in forecast" :key="index">
+          <ForecastItem :forecast-data="subItem"></ForecastItem>
+        </div>
+      </div>
     </div>
   </div>
 </template>
