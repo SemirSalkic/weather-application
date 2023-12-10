@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import type { ForecastListItem } from '@/stores/types'
+import { capitalizeFirstLetters, timestampToTime } from '@/util'
+
+withDefaults(
+  defineProps<{
+    forecastData?: ForecastListItem
+    title?: string
+  }>(),
+  {
+    forecastData: undefined,
+    title: ''
+  }
+)
+</script>
+
 <template>
   <div class="my-4 rounded-lg bg-weather-primary px-2 py-2">
     <div
@@ -21,18 +37,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import type { ForecastListItem } from '@/stores/types'
-import { capitalizeFirstLetters, timestampToTime } from '@/util'
-
-withDefaults(
-  defineProps<{
-    forecastData?: ForecastListItem
-    title?: string
-  }>(),
-  {
-    forecastData: undefined,
-    title: ''
-  }
-)
-</script>
