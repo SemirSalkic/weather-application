@@ -45,7 +45,7 @@ onMounted(async () => {
     <div v-else>
       <div v-if="locationWeatherList.length === 0" class="px-4">
         <ForecastItem
-          class="text-white"
+          class="container text-white"
           title="You haven't added any locations to your favorites yet. Start exploring and add some!"
         ></ForecastItem>
       </div>
