@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import CityWeatherCard from '@/components/CityWeatherCard.vue'
+import LoadAnimation from '@/assets/svg/LoadAnimation.vue'
 import ForecastItem from '@/components/ForecastItem.vue'
 import { useLocationStore } from '@/stores/location'
 import type { ForecastListItem } from '@/stores/types'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
-import { onMounted, computed, watch } from 'vue'
+import { onMounted, computed, watch, ref } from 'vue'
 import { formatDate } from '@/util'
 
 const weatherStore = useWeatherStore()
 const { forecastData, currentWeatherData } = storeToRefs(weatherStore)
 const { selectedLocation, selectedLocationName } = storeToRefs(useLocationStore())
+const loading = ref(false)
 
 // Computed property to group forecast items by date
 const sortedForecast = computed(() => {
@@ -31,14 +33,18 @@ const sortedForecast = computed(() => {
 })
 
 async function fetchWeatherAndForecastData() {
-  await weatherStore.fetchWeatherData(
-    selectedLocation.value?.lat || '',
-    selectedLocation.value?.lon || ''
-  )
-  await weatherStore.fetchForecastWeatherData(
-    selectedLocation.value?.lat || '',
-    selectedLocation.value?.lon || ''
-  )
+  loading.value = true
+  await Promise.all([
+    weatherStore.fetchWeatherData(
+      selectedLocation.value?.lat || '',
+      selectedLocation.value?.lon || ''
+    ),
+    weatherStore.fetchForecastWeatherData(
+      selectedLocation.value?.lat || '',
+      selectedLocation.value?.lon || ''
+    )
+  ])
+  loading.value = false
 }
 
 onMounted(async () => {
@@ -51,7 +57,10 @@ watch(selectedLocationName, async () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-4 bg-weather-secondary px-4 py-8 text-white">
+  <div v-if="loading" class="fixed left-0 top-0 flex h-full w-full items-center justify-center">
+    <LoadAnimation class="h-16 w-16"></LoadAnimation>
+  </div>
+  <div v-else class="flex flex-col items-center gap-4 bg-weather-secondary px-4 py-8 text-white">
     <CityWeatherCard
       v-if="currentWeatherData && selectedLocation && selectedLocationName"
       :location="selectedLocation"

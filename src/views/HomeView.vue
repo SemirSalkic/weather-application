@@ -2,10 +2,12 @@
 import CityWeatherCard from '@/components/CityWeatherCard.vue'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import LoadAnimation from '@/assets/svg/LoadAnimation.vue'
 
 const weatherStore = useWeatherStore()
 const { locationWeatherList } = storeToRefs(weatherStore)
+const loading = ref(false)
 
 async function updateLocationWeatherList() {
   const fetchPromises = locationWeatherList.value.map((item) =>
@@ -28,13 +30,18 @@ async function updateLocationWeatherList() {
 }
 
 onMounted(async () => {
+  loading.value = true
   await updateLocationWeatherList()
+  loading.value = false
 })
 </script>
 
 <template>
   <div class="mt-8 flex flex-col gap-6">
-    <div v-for="item in locationWeatherList" :key="item.cityWeatherData.id">
+    <div v-if="loading" class="fixed left-0 top-0 flex h-full w-full items-center justify-center">
+      <LoadAnimation class="h-16 w-16"></LoadAnimation>
+    </div>
+    <div v-for="item in locationWeatherList" v-else :key="item.cityWeatherData.id">
       <CityWeatherCard
         :location="item.locationData"
         :current-weather="item.cityWeatherData"
