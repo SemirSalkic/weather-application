@@ -82,8 +82,8 @@ function navigateToSelectedCity() {
     <div
       class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4 text-center"
     >
-      <div class="flex flex-col items-center">
-        <span class="text-4xl font-semibold"
+      <div class="flex flex-col items-center text-xs md:text-base">
+        <span class="text-base font-semibold md:text-4xl"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
         >
         <span class="flex flex-col">
@@ -94,20 +94,20 @@ function navigateToSelectedCity() {
       </div>
       <div class="flex flex-col items-center">
         <img
-          class="h-auto w-20"
+          class="h-auto w-10 md:w-20"
           :src="`http://openweathermap.org/img/wn/${currentWeather?.weather[0].icon}.png`"
           :alt="currentWeather?.weather[0].description"
         />
-        <span class="text-lg">{{
+        <span class="text-xs md:text-lg">{{
           capitalizeFirstLetters(currentWeather?.weather[0].description)
         }}</span>
       </div>
-      <div class="flex flex-col items-center">
-        <span class="text-sm">Clouds: {{ currentWeather?.clouds.all }}%</span>
-        <span class="text-sm">Humidity: {{ currentWeather?.main.humidity }}%</span>
-        <span class="text-sm">Visibility: {{ currentWeather?.visibility }}m</span>
-        <span class="text-sm">Pressure: {{ currentWeather?.main.pressure }}hPa</span>
-        <span class="text-sm">Wind Speed: {{ currentWeather?.wind.speed }}m/s</span>
+      <div class="flex flex-col items-center text-xs md:text-sm">
+        <span>Clouds: {{ currentWeather?.clouds.all }}%</span>
+        <span>Humidity: {{ currentWeather?.main.humidity }}%</span>
+        <span>Visibility: {{ currentWeather?.visibility }}m</span>
+        <span>Pressure: {{ currentWeather?.main.pressure }}hPa</span>
+        <span>Wind Speed: {{ currentWeather?.wind.speed }}m/s</span>
       </div>
     </div>
   </div>
