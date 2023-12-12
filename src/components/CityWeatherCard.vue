@@ -79,10 +79,8 @@ function navigateToSelectedCity() {
       </div>
       <span>Time: {{ timestampToDateTime(currentWeather?.dt) }}</span>
     </div>
-    <div
-      class="flex w-full items-center justify-around rounded-lg bg-weather-secondary px-4 py-4 text-center"
-    >
-      <div class="flex flex-col items-center text-xs md:text-base">
+    <div class="flex items-end justify-around rounded-lg bg-weather-secondary py-4 text-center">
+      <div class="flex flex-col text-xs md:text-base">
         <span class="text-base font-semibold md:text-4xl"
           >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
         >
@@ -94,7 +92,7 @@ function navigateToSelectedCity() {
       </div>
       <div class="flex flex-col items-center">
         <img
-          class="h-auto w-10 md:w-20"
+          class="h-auto w-14 md:w-20"
           :src="`http://openweathermap.org/img/wn/${currentWeather?.weather[0].icon}.png`"
           :alt="currentWeather?.weather[0].description"
         />
@@ -102,7 +100,7 @@ function navigateToSelectedCity() {
           capitalizeFirstLetters(currentWeather?.weather[0].description)
         }}</span>
       </div>
-      <div class="flex flex-col items-center text-xs md:text-sm">
+      <div class="flex flex-col text-xs md:text-sm">
         <span>Clouds: {{ currentWeather?.clouds.all }}%</span>
         <span>Humidity: {{ currentWeather?.main.humidity }}%</span>
         <span>Visibility: {{ currentWeather?.visibility }}m</span>
