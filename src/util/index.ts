@@ -27,7 +27,7 @@ export const timestampToDateTime = (timestamp: number | undefined): string => {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    hour12: false
+    hourCycle: 'h23'
   })
 }
 
