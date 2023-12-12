@@ -20,7 +20,7 @@ const { locations, locationsError, selectedLocation, selectedLocationName } =
   storeToRefs(locationStore)
 const locationsQuery = ref('')
 const target = ref()
-const input = ref()
+const locationInput = ref()
 const closeList = ref(false)
 
 const debouncedGetLocations = useDebounceFn(
@@ -66,7 +66,7 @@ function emptyLocationQuery() {
   locationsQuery.value = ''
   locations.value = null
   locationsError.value = false
-  input.value?.focus()
+  locationInput.value?.focus()
 }
 
 onClickOutside(target, () => (closeList.value = true))
@@ -83,8 +83,9 @@ onClickOutside(target, () => (closeList.value = true))
         <div ref="target" class="relative flex-1">
           <div class="relative">
             <input
-              ref="input"
+              ref="locationInput"
               v-model="locationsQuery"
+              name="location-input"
               class="w-full rounded-lg border-2 bg-transparent py-2 pl-2 pr-9 text-white focus:border-weather-secondary focus:outline-none"
               type="text"
               placeholder="Enter a location"
