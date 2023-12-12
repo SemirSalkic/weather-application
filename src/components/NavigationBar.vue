@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { SunIcon, InformationCircleIcon } from '@heroicons/vue/24/outline'
+import { SunIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline'
 import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
 import VDialog from '@/components/action-components/VDialog.vue'
 import VButton from '@/components/action-components/VButton.vue'
@@ -61,6 +61,12 @@ function navigateToSelectedCity(location: Location, locationName: string) {
   })
 }
 
+function emptyLocationQuery() {
+  locationsQuery.value = ''
+  locations.value = null
+  locationsError.value = false
+}
+
 onClickOutside(target, () => (closeList.value = true))
 </script>
 
@@ -73,14 +79,23 @@ onClickOutside(target, () => (closeList.value = true))
           <span class="hidden text-lg font-bold md:block">Weather Application</span>
         </RouterLink>
         <div ref="target" class="relative flex-1">
-          <input
-            v-model="locationsQuery"
-            class="w-full rounded-lg border-2 bg-transparent px-2 py-2 text-white focus:border-weather-secondary focus:outline-none"
-            type="text"
-            placeholder="Enter a location"
-            @input="fetchLocations"
-            @click="closeList = false"
-          />
+          <div class="relative">
+            <input
+              v-model="locationsQuery"
+              class="w-full rounded-lg border-2 bg-transparent px-2 py-2 pr-8 text-white focus:border-weather-secondary focus:outline-none"
+              type="text"
+              placeholder="Enter a location"
+              @input="fetchLocations()"
+              @click="closeList = false"
+            />
+            <VButtonIcon
+              v-if="locationsQuery"
+              class="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-white"
+              @click="emptyLocationQuery()"
+            >
+              <XCircleIcon class="h-auto w-7" />
+            </VButtonIcon>
+          </div>
           <div
             v-if="(locations || locationsError) && !closeList"
             class="absolute mt-2 w-full rounded-lg border-2 border-weather-secondary bg-weather-primary px-1 py-2 text-white shadow-md"
