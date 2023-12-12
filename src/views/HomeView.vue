@@ -38,11 +38,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mt-8 flex flex-col gap-6">
+  <div class="mt-8">
     <div v-if="loading" class="fixed left-0 top-0 flex h-full w-full items-center justify-center">
       <LoadAnimation class="h-16 w-16"></LoadAnimation>
     </div>
-    <div v-else>
+    <div v-else class="flex flex-col gap-6">
       <div v-if="locationWeatherList.length === 0" class="px-4">
         <ForecastItem
           class="container text-white"
