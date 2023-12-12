@@ -2,6 +2,7 @@
 import CityWeatherCard from '@/components/CityWeatherCard.vue'
 import LoadAnimation from '@/assets/svg/LoadAnimation.vue'
 import ForecastItem from '@/components/ForecastItem.vue'
+import InformationContainer from '@/components/InformationContainer.vue'
 import { useLocationStore } from '@/stores/location'
 import type { ForecastListItem } from '@/stores/types'
 import { useWeatherStore } from '@/stores/weather'
@@ -69,7 +70,7 @@ watch(selectedLocationName, async () => {
     />
     <div v-if="forecastData" class="container">
       <div v-for="(forecast, indexForecast) in sortedForecast" :key="indexForecast">
-        <ForecastItem :title="formatDate(indexForecast)"></ForecastItem>
+        <InformationContainer :title="formatDate(indexForecast)"></InformationContainer>
         <div v-for="(subItem, index) in forecast" :key="index">
           <ForecastItem :forecast-data="subItem"></ForecastItem>
         </div>

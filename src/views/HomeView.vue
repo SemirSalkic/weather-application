@@ -4,7 +4,7 @@ import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import LoadAnimation from '@/assets/svg/LoadAnimation.vue'
-import ForecastItem from '@/components/ForecastItem.vue'
+import InformationContainer from '@/components/InformationContainer.vue'
 
 const weatherStore = useWeatherStore()
 const { locationWeatherList } = storeToRefs(weatherStore)
@@ -44,10 +44,10 @@ onMounted(async () => {
     </div>
     <div v-else class="flex flex-col gap-6">
       <div v-if="locationWeatherList.length === 0" class="px-4">
-        <ForecastItem
+        <InformationContainer
           class="container text-white"
           title="You haven't added any locations to your favorites yet. Start exploring and add some!"
-        ></ForecastItem>
+        ></InformationContainer>
       </div>
       <div v-for="item in locationWeatherList" v-else :key="item.cityWeatherData.id">
         <CityWeatherCard

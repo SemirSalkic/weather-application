@@ -5,11 +5,9 @@ import { capitalizeFirstLetters, timestampToTime } from '@/util'
 withDefaults(
   defineProps<{
     forecastData?: ForecastListItem
-    title?: string
   }>(),
   {
-    forecastData: undefined,
-    title: ''
+    forecastData: undefined
   }
 )
 </script>
@@ -17,8 +15,7 @@ withDefaults(
 <template>
   <div class="my-4 rounded-lg bg-weather-primary px-2 py-2">
     <div
-      v-if="!title"
-      class="grid grid-cols-5 items-center justify-around gap-2 rounded-lg bg-weather-secondary px-2 text-center"
+      class="grid grid-cols-5 items-center justify-around gap-2 rounded-lg bg-weather-secondary text-center"
     >
       <span class="text-xs font-semibold md:text-lg">{{ timestampToTime(forecastData?.dt) }}</span>
       <span class="text-xs font-semibold md:text-base">{{
@@ -31,9 +28,6 @@ withDefaults(
         <span>Humidity: {{ forecastData?.main?.humidity }}%</span>
         <span>Wind Speed: {{ forecastData?.wind?.speed }}km/h</span>
       </div>
-    </div>
-    <div v-else class="text-center text-lg font-semibold">
-      {{ title }}
     </div>
   </div>
 </template>
