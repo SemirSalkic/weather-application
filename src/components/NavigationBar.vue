@@ -85,7 +85,7 @@ onClickOutside(target, () => (closeList.value = true))
             <input
               ref="input"
               v-model="locationsQuery"
-              class="w-full rounded-lg border-2 bg-transparent px-2 py-2 pr-8 text-white focus:border-weather-secondary focus:outline-none"
+              class="w-full rounded-lg border-2 bg-transparent py-2 pl-2 pr-9 text-white focus:border-weather-secondary focus:outline-none"
               type="text"
               placeholder="Enter a location"
               @input="fetchLocations()"
@@ -93,7 +93,7 @@ onClickOutside(target, () => (closeList.value = true))
             />
             <VButtonIcon
               v-if="locationsQuery"
-              class="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-white"
+              class="absolute right-1 top-1/2 -translate-y-1/2 transform cursor-pointer text-white"
               @click="emptyLocationQuery()"
             >
               <XCircleIcon class="h-auto w-7" />
