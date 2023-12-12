@@ -42,14 +42,14 @@ onMounted(async () => {
     <div v-if="loading" class="fixed left-0 top-0 flex h-full w-full items-center justify-center">
       <LoadAnimation class="h-16 w-16"></LoadAnimation>
     </div>
-    <div v-else class="flex flex-col gap-6">
+    <div v-else class="flex flex-col">
       <div v-if="locationWeatherList.length === 0" class="px-4">
         <InformationContainer
           class="container text-white"
           title="You haven't added any locations to your favorites yet. Start exploring and add some!"
         ></InformationContainer>
       </div>
-      <div v-for="item in locationWeatherList" v-else :key="item.cityWeatherData.id">
+      <div v-for="item in locationWeatherList" v-else :key="item.cityWeatherData.id" class="mb-6">
         <CityWeatherCard
           :location="item.locationData"
           :current-weather="item.cityWeatherData"
