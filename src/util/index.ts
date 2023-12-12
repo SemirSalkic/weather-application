@@ -32,6 +32,7 @@ export const timestampToDateTime = (timestamp: number | undefined): string => {
 }
 
 export const formatDate = (input: string | undefined): string => {
+  if (!input) return ''
   const date = new Date(input)
   return date.toLocaleDateString('en-US')
 }
