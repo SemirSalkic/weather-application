@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ForecastListItem } from '@/stores/types'
-import { capitalizeFirstLetters, timestampToTime } from '@/util'
+import { timestampToTime } from '@/util'
 
 withDefaults(
   defineProps<{
@@ -21,9 +21,11 @@ withDefaults(
       <span class="text-xs font-semibold md:text-base">{{
         forecastData?.main?.temp ? Math.round(forecastData.main.temp) + '°C' : ''
       }}</span>
-      <span class="text-xs md:text-sm">{{
-        capitalizeFirstLetters(forecastData?.weather[0]?.description)
-      }}</span>
+      <img
+        class="h-auto w-16 justify-self-center"
+        :src="`http://openweathermap.org/img/wn/${forecastData?.weather[0].icon}.png`"
+        :alt="forecastData?.weather[0].description"
+      />
       <div class="col-span-2 flex flex-col text-xs md:text-sm">
         <span>Humidity: {{ forecastData?.main?.humidity }}%</span>
         <span>Wind Speed: {{ forecastData?.wind?.speed }}km/h</span>

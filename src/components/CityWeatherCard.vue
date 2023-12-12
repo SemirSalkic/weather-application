@@ -92,7 +92,7 @@ function navigateToSelectedCity() {
       </div>
       <div class="flex flex-col items-center">
         <img
-          class="h-auto w-14 md:w-20"
+          class="h-auto w-16 md:w-20"
           :src="`http://openweathermap.org/img/wn/${currentWeather?.weather[0].icon}.png`"
           :alt="currentWeather?.weather[0].description"
         />
