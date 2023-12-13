@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import VDialog from '@/components/action-components/VDialog.vue'
+import VButton from '@/components/action-components/VButton.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -38,20 +39,15 @@ const showDialog = computed({
         {{ title }}
       </span>
       <slot name="content"></slot>
-      <div class="flex justify-end">
-        <button
-          class="mr-4 rounded-lg bg-weather-secondary px-4 py-2 text-white hover:bg-opacity-80 active:bg-opacity-70"
-          @click="emit('cancel')"
-        >
-          Cancel
-        </button>
-        <button
-          class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-opacity-80 active:bg-opacity-70 disabled:pointer-events-none disabled:opacity-50"
+      <div class="flex justify-end gap-2">
+        <VButton class="self-center rounded-md" label="Cancel" @click="emit('cancel')"></VButton>
+        <VButton
+          class="self-center rounded-md"
+          color="error"
+          :label="confirmText"
           :disabled="disabledConfirm"
           @click="emit('confirm')"
-        >
-          {{ confirmText }}
-        </button>
+        ></VButton>
       </div>
     </div>
   </VDialog>
