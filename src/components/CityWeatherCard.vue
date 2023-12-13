@@ -28,6 +28,23 @@ const { selectedLocation, selectedLocationName } = storeToRefs(useLocationStore(
 
 const removeListItemDialog = ref(false)
 
+const formatTemperature = (temp: number) => Math.round(temp || 0) + '°C'
+
+const temp = computed(() => formatTemperature(props.currentWeather?.main.temp))
+const tempMin = computed(() => 'Min: ' + formatTemperature(props.currentWeather?.main.temp_min))
+const tempMax = computed(() => 'Max: ' + formatTemperature(props.currentWeather?.main.temp_max))
+const feelsLike = computed(
+  () => 'Feels like: ' + formatTemperature(props.currentWeather?.main.feels_like)
+)
+
+const addLocationWeatherItem = () => {
+  weatherStore.addLocationWeatherItem(
+    props.location,
+    props.currentWeather,
+    selectedLocationName.value
+  )
+}
+
 const isInLocationWeatherList = computed(() => {
   if (!props.currentWeather) return false
   return locationWeatherList.value.some(
@@ -61,12 +78,7 @@ function navigateToSelectedCity() {
       <div class="flex items-start justify-between">
         <span class="text-xl font-bold">{{ locationName }}</span>
         <div class="flex">
-          <VButtonIcon
-            v-if="!isInLocationWeatherList"
-            @click="
-              weatherStore.addLocationWeatherItem(location, currentWeather, selectedLocationName)
-            "
-          >
+          <VButtonIcon v-if="!isInLocationWeatherList" @click="addLocationWeatherItem">
             <PlusCircleIcon class="h-8 w-8"></PlusCircleIcon>
           </VButtonIcon>
           <VButtonIcon v-else @click="removeListItemDialog = true">
@@ -81,14 +93,12 @@ function navigateToSelectedCity() {
     </div>
     <div class="flex items-end justify-around rounded-lg bg-weather-secondary py-4 text-center">
       <div class="flex flex-col text-xs md:text-base">
-        <span class="text-base font-semibold md:text-4xl"
-          >{{ Math.round(currentWeather?.main.temp || 0) }}°C</span
-        >
+        <span class="text-base font-semibold md:text-4xl">{{ temp }}</span>
         <span class="flex flex-col">
-          <span>Min: {{ Math.round(currentWeather?.main.temp_min || 0) }}°C</span>
-          <span>Max: {{ Math.round(currentWeather?.main.temp_max || 0) }}°C</span>
+          <span>{{ tempMin }}</span>
+          <span>{{ tempMax }}</span>
         </span>
-        <span>Feels like: {{ Math.round(currentWeather?.main.feels_like || 0) }}°C</span>
+        <span>{{ feelsLike }}</span>
       </div>
       <div class="flex flex-col items-center">
         <img
