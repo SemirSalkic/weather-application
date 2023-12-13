@@ -5,7 +5,7 @@ import LoadAnimation from '../../assets/svg/LoadAnimation.vue'
 export interface VButtonProps {
   label?: string
   type?: ButtonType
-  color?: 'white' | 'neutral'
+  color?: 'white' | 'neutral' | 'error'
   disabled?: boolean
   loading?: boolean
 }
@@ -25,6 +25,7 @@ const hasIcon = computed<boolean>(() => !!slots?.icon)
 
 const white = computed(() => props.color === 'white')
 const neutral = computed(() => props.color === 'neutral')
+const error = computed(() => props.color === 'error')
 const basic = computed(() => !props.color)
 </script>
 
@@ -41,7 +42,10 @@ const basic = computed(() => !props.color)
           neutral
       },
       {
-        'border-weather-primary bg-weather-secondary hover:bg-brand-300 active:bg-weather-primary text-white':
+        'border-red-700 bg-red-600 text-white hover:bg-red-500 active:bg-red-600': error
+      },
+      {
+        ' border-weather-primary bg-weather-secondary text-white hover:opacity-80 active:opacity-90':
           basic
       }
     ]"
@@ -50,7 +54,7 @@ const basic = computed(() => !props.color)
     <template v-if="hasIcon">
       <slot name="icon"> </slot>
     </template>
-    <LoadAnimation v-if="loading" class="w-5 h-5"></LoadAnimation>
+    <LoadAnimation v-if="loading" class="h-5 w-5"></LoadAnimation>
     <span v-else>
       {{ label }}
     </span>
