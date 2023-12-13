@@ -21,7 +21,6 @@ const props = withDefaults(defineProps<VButtonProps>(), {
 })
 
 const slots = useSlots()
-const hasIcon = computed<boolean>(() => !!slots?.icon)
 
 const white = computed(() => props.color === 'white')
 const neutral = computed(() => props.color === 'neutral')
@@ -51,9 +50,7 @@ const basic = computed(() => !props.color)
     ]"
     :disabled="disabled"
   >
-    <template v-if="hasIcon">
-      <slot name="icon"></slot>
-    </template>
+    <slot v-if="slots.icon" name="icon"></slot>
     <LoadAnimation v-if="loading" class="h-5 w-5"></LoadAnimation>
     <span v-else>
       {{ label }}
