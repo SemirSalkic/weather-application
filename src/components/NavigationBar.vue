@@ -129,7 +129,6 @@ onClickOutside(target, () => (closeList.value = true))
       <AboutApplication></AboutApplication>
       <VButton
         class="w-52 self-center rounded-md"
-        color="neutral"
         label="Close"
         @click="isDialogOpen = false"
       ></VButton>
