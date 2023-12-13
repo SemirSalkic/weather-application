@@ -1,6 +1,16 @@
 # Weather Application
 
-Welcome to our weather application! This application is built with Vue 3, TypeScript, and Tailwind CSS, and offers a user-friendly platform to keep track of the weather conditions in your favorite cities.
+Welcome to our weather application! This application offers a user-friendly platform to keep track of the weather conditions in your favorite cities.
+
+## Features
+
+- Search for cities using an autocomplete search bar
+- View current weather data including temperature, weather condition, humidity, wind speed etc.
+- 5 day forecast for easier planning
+- Add cities to your favorites for quick access
+- Remove cities from your favorites list
+- Responsive design for mobile and desktop
+- Clean and intuitive UI
 
 ## How it Works
 
@@ -17,6 +27,16 @@ Welcome to our weather application! This application is built with Vue 3, TypeSc
 5. **Navigating Back to the Home Page:** To go back to the home page at any time, simply click on the "Weather Application" logo, located in the top left corner of the page. This will take you back to the home page where you can see all your tracked cities.
 
 This application is designed to provide you with real-time weather updates and allows for easy navigation between your tracked cities. Enjoy staying ahead of the weather!
+
+## Built With
+
+- [Vue.js](https://vuejs.org/) - The web framework used
+- [TypeScript](https://www.typescriptlang.org/) - For static type checking
+- [Tailwind CSS](https://tailwindcss.com/) - For styles
+- [Vue Router](https://router.vuejs.org/) - For routing
+- [Pinia](https://pinia.esm.dev/) - State management
+- [Axios](https://axios-http.com/) - Promise based HTTP client
+- [VueUse](https://vueuse.org/) - Collection of useful composition APIs
 
 ## Recommended IDE Setup
 
@@ -60,3 +80,42 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## APIs
+
+This app uses two external APIs:
+
+### [OpenWeather API](https://openweathermap.org/api)
+Used to fetch weather data. Requires an API key.
+
+Base URL: `https://api.openweathermap.org/data/2.5`
+
+Some endpoints used:
+- `/weather` - Current weather by city name
+- `/forecast` - 5 day forecast by city name
+
+### [LocationIQ API](https://locationiq.com/docs)
+Used for city search. Requires an API key.
+
+Base URL: `https://us1.locationiq.com/v1`
+
+Some endpoints used:
+- `/search` - Search for cities by name
+
+## Environment Variables
+
+This app uses environment variables to manage sensitive data. You need to create a `.env` file in the root of your project and add the following variables:
+
+```properties
+VITE_LOCATIONIQ_API_KEY= your_locationiq_api_key
+VITE_OPENWEATHER_API_KEY= your_openweather_api_key
+VITE_BASE_LOCATION_URL= https://us1.locationiq.com/v1
+VITE_BASE_WEATHER_URL= https://api.openweathermap.org/data/2.5
+```
+## Deployment
+
+The app is deployed on [Netlify](https://www.netlify.com/).
+
+You can view the live site here: [https://voluble-palmier-d3f2d0.netlify.app](https://voluble-palmier-d3f2d0.netlify.app)
+
+It automatically deploys from the main branch on GitHub.
