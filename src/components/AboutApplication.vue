@@ -33,15 +33,15 @@ import { PlusCircleIcon, MinusCircleIcon, SunIcon } from '@heroicons/vue/24/outl
           <li>
             <strong>From the Home Page:</strong> Look for the city card of the city you want to
             remove. In the top right corner of the city card, you'll see a
-            <MinusCircleIcon class="inline h-6 w-6" h-6 w-6”></MinusCircleIcon> icon. Simply click
-            on this icon to stop tracking the city.
+            <MinusCircleIcon class="inline h-6 w-6"></MinusCircleIcon> icon. Simply click on this
+            icon to stop tracking the city.
           </li>
           <li>
             <strong>From a Specific City's Page:</strong> If you're currently viewing a specific
             city's weather, you can also remove the city from there. Look for the
-            <MinusCircleIcon class="inline h-6 w-6" h-6 w-6”></MinusCircleIcon> icon, located near
-            the city's name in the top right corner of the city card. Clicking on this icon will
-            stop tracking the city.
+            <MinusCircleIcon class="inline h-6 w-6"></MinusCircleIcon> icon, located near the city's
+            name in the top right corner of the city card. Clicking on this icon will stop tracking
+            the city.
           </li>
         </ul>
       </li>
