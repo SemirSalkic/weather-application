@@ -18,7 +18,11 @@ const router = createRouter({
     {
       path: '/city-weather-view/:country/:city',
       name: RouteName.CityWeatherView,
-      component: CityWeatherView
+      component: CityWeatherView,
+      props: (route) => ({
+        locationId: route.query.locationId,
+        locationName: route.query.locationName
+      })
     }
   ]
 })

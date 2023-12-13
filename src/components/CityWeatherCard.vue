@@ -64,7 +64,11 @@ function navigateToSelectedCity() {
   const city = props.location.address.name.replace(/\s/g, '-').toLocaleLowerCase()
   router.push({
     name: RouteName.CityWeatherView,
-    params: { country: country, city: city }
+    params: { country: country, city: city },
+    query: {
+      locationId: props.location.place_id,
+      locationName: props.locationName
+    }
   })
 }
 </script>

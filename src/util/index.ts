@@ -6,6 +6,8 @@
  * helping to keep the codebase DRY (Don't Repeat Yourself) and making it easier
  * to make changes in one place.
  */
+import type { Address } from '@/stores/types'
+
 export const timestampToDate = (timestamp: number | undefined): string => {
   if (!timestamp) return ''
   const date = new Date(timestamp * 1000)
@@ -39,4 +41,16 @@ export const formatDate = (input: string | undefined): string => {
 
 export const capitalizeFirstLetters = (str: string | undefined): string => {
   return str?.replace(/\b\w/g, (char) => char.toUpperCase()) || ''
+}
+
+export const formatAddress = (address: Address): string => {
+  const formattedAddress = [
+    address.name,
+    address.county || address.state,
+    address.country,
+    address.postcode || address.suburb
+  ]
+    .filter(Boolean)
+    .join(', ')
+  return formattedAddress
 }

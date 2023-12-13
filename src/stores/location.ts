@@ -27,10 +27,11 @@ export const useLocationStore = defineStore(STORE_LOCATION, () => {
     try {
       const res = await axios.get<Location[]>(constructLocationAPIUrl(locationQuery, limit))
       locations.value = res.data
-      return res
+      return res.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) locations.value = []
       else locationsError.value = true
+      throw error
     }
   }
 

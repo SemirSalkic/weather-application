@@ -7,13 +7,21 @@ import { useLocationStore } from '@/stores/location'
 import type { ForecastListItem } from '@/stores/types'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'
-import { onMounted, computed, watch, ref } from 'vue'
-import { formatDate } from '@/util'
+import { computed, watch, ref } from 'vue'
+import { formatAddress, formatDate } from '@/util'
+
+const props = defineProps<{
+  locationId: string
+  locationName?: string
+}>()
 
 const weatherStore = useWeatherStore()
+const locationStore = useLocationStore()
 const { forecastData, currentWeatherData } = storeToRefs(weatherStore)
-const { selectedLocation, selectedLocationName } = storeToRefs(useLocationStore())
+const { selectedLocation, selectedLocationName } = storeToRefs(locationStore)
 const loading = ref(false)
+const locationNotFound = ref(false)
+const weatherDataNotFound = ref(false)
 
 // Computed property to group forecast items by date
 const sortedForecast = computed(() => {
@@ -33,30 +41,65 @@ const sortedForecast = computed(() => {
   return {} // Return an empty object if forecast data is not available
 })
 
-async function fetchWeatherAndForecastData() {
-  loading.value = true
-  const lat = selectedLocation.value?.lat || ''
-  const lon = selectedLocation.value?.lon || ''
-  await Promise.all([
-    weatherStore.fetchWeatherData(lat, lon),
-    weatherStore.fetchForecastWeatherData(lat, lon)
-  ])
-  loading.value = false
+async function fetchLocationData() {
+  try {
+    loading.value = true
+    locationNotFound.value = false
+    if (props.locationName && props.locationName !== selectedLocationName.value) {
+      const location = (await locationStore.fetchLocations(props.locationName))?.find(
+        (loc) => loc.place_id === props.locationId
+      )
+
+      selectedLocation.value = location || null
+      selectedLocationName.value = location ? formatAddress(location.address) : ''
+      locationNotFound.value = !location
+    }
+  } catch (error) {
+    locationNotFound.value = true
+  } finally {
+    loading.value = false
+  }
 }
 
-onMounted(async () => {
-  await fetchWeatherAndForecastData()
-})
+async function fetchWeatherData() {
+  try {
+    loading.value = true
+    weatherDataNotFound.value = false
+    if (!selectedLocation.value) return (weatherDataNotFound.value = true)
+    const { lat, lon } = selectedLocation.value
+    await Promise.all([
+      weatherStore.fetchWeatherData(lat, lon),
+      weatherStore.fetchForecastWeatherData(lat, lon)
+    ])
+  } catch (error) {
+    weatherDataNotFound.value = true
+  } finally {
+    loading.value = false
+  }
+}
 
-watch(selectedLocationName, async () => {
-  await fetchWeatherAndForecastData()
-})
+watch(
+  () => props.locationName,
+  async () => {
+    await fetchLocationData()
+    await fetchWeatherData()
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <div v-if="loading" class="fixed left-0 top-0 flex h-full w-full items-center justify-center">
     <LoadAnimation class="h-16 w-16"></LoadAnimation>
   </div>
+  <InformationContainer
+    v-else-if="!loading && (locationNotFound || weatherDataNotFound)"
+    class="container mt-8 text-white"
+    :title="
+      (locationNotFound ? 'Location data not found! ' : 'Weather data not found! ') +
+      'Please go back to the home page or use the search bar to find another location.'
+    "
+  ></InformationContainer>
   <div v-else class="flex flex-col items-center gap-4 bg-weather-secondary px-4 py-8 text-white">
     <CityWeatherCard
       v-if="currentWeatherData && selectedLocation && selectedLocationName"

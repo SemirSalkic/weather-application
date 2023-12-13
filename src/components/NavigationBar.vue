@@ -10,8 +10,9 @@ import router, { RouteName } from '@/router'
 import { useDebounceFn } from '@vueuse/core'
 import { useLocationStore } from '@/stores/location'
 import { onClickOutside } from '@vueuse/core'
-import type { Address, Location } from '../stores/types'
+import type { Location } from '../stores/types'
 import { storeToRefs } from 'pinia'
+import { formatAddress } from '@/util'
 
 const isDialogOpen = ref(false)
 
@@ -27,18 +28,6 @@ const debouncedGetLocations = useDebounceFn(
   () => locationStore.fetchLocations(locationsQuery.value),
   500
 )
-
-function formatAddress(address: Address) {
-  const formattedAddress = [
-    address.name,
-    address.county || address.state,
-    address.country,
-    address.postcode || address.suburb
-  ]
-    .filter(Boolean)
-    .join(', ')
-  return formattedAddress
-}
 
 function fetchLocations() {
   if (locationsQuery.value.trim() !== '') {
@@ -58,7 +47,11 @@ function navigateToSelectedCity(location: Location, locationName: string) {
   const city = location.address.name.replace(/\s/g, '-').toLocaleLowerCase()
   router.push({
     name: RouteName.CityWeatherView,
-    params: { country: country, city: city }
+    params: { country: country, city: city },
+    query: {
+      locationId: location.place_id,
+      locationName: locationName
+    }
   })
 }
 
@@ -101,7 +94,7 @@ onClickOutside(target, () => (closeList.value = true))
             </VButtonIcon>
           </div>
           <div
-            v-if="(locations || locationsError) && !closeList"
+            v-if="(locations || locationsError) && locationsQuery && !closeList"
             class="absolute mt-2 w-full rounded-lg border-2 border-weather-secondary bg-weather-primary px-1 py-2 text-white shadow-md"
           >
             <p v-if="locationsError" class="px-2 py-2">There was an error, please try again.</p>

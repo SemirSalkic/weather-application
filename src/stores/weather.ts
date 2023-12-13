@@ -44,6 +44,7 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
       return res.data
     } catch (error) {
       console.error(error)
+      throw error
     }
   }
 
@@ -55,6 +56,7 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
       return res.data
     } catch (error) {
       console.error(error)
+      throw error
     }
   }
 
