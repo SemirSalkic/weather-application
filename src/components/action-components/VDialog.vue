@@ -10,7 +10,7 @@ defineOptions({
 
 export interface VDialogProps {
   modelValue: boolean
-  static?: boolean
+  static?: boolean | undefined
 }
 
 const props = withDefaults(defineProps<VDialogProps>(), {
@@ -23,12 +23,12 @@ const showDialog = computed({
     return props.modelValue
   },
   set(newValue: boolean) {
-    emit('update:modelValue', newValue)
+    emit('update:model-value', newValue)
   }
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
+  (e: 'update:model-value', value: boolean): void
 }>()
 </script>
 
