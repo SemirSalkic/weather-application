@@ -16,19 +16,21 @@ export const useLocationStore = defineStore(STORE_LOCATION, () => {
     serializer: StorageSerializers.object
   })
 
+  function constructLocationAPIUrl(query: string, limit: number) {
+    const encodedQuery = encodeURIComponent(query)
+    return `${VITE_BASE_LOCATION_URL}/autocomplete?q=${encodedQuery}&tag=place%3Aprovince%2Cplace%3Acity%2Cplace%3Atown%2Cplace%3Avillage&limit=${limit}&dedupe=1&key=${VITE_LOCATIONIQ_API_KEY}`
+  }
+
   async function fetchLocations(locationQuery: string, limit = 5) {
     locationsError.value = false
     if (!locationQuery) return
     try {
-      const res = await axios.get<Location[]>(
-        `${VITE_BASE_LOCATION_URL}/autocomplete?q=${locationQuery}&tag=place%3Aprovince%2Cplace%3Acity%2Cplace%3Atown%2Cplace%3Avillage&limit=${limit}&dedupe=1&key=${VITE_LOCATIONIQ_API_KEY}`
-      )
+      const res = await axios.get<Location[]>(constructLocationAPIUrl(locationQuery, limit))
       locations.value = res.data
       return res
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) locations.value = []
       else locationsError.value = true
-      console.log(error)
     }
   }
 

@@ -13,6 +13,10 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
     []
   )
 
+  function constructWeatherAPIUrl(endpoint: string, lat: string, lon: string) {
+    return `${VITE_BASE_WEATHER_URL}/${endpoint}?lat=${lat}&lon=${lon}&units=metric&appid=${VITE_OPENWEATHER_API_KEY}`
+  }
+
   function removeLocationWeatherItem(id: number) {
     locationWeatherList.value = locationWeatherList.value?.filter(
       (item) => item.cityWeatherData.id !== id
@@ -24,6 +28,10 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
     cityWeatherData: WeatherData,
     locationName: string
   ) {
+    const itemExists = locationWeatherList.value?.some(
+      (item) => item.cityWeatherData.id === cityWeatherData.id
+    )
+    if (itemExists) return
     const item = { locationData, cityWeatherData, locationName }
     locationWeatherList.value?.push(item)
   }
@@ -31,26 +39,22 @@ export const useWeatherStore = defineStore(STORE_WEATHER, () => {
   async function fetchWeatherData(lat: string, lon: string) {
     if (!lat || !lon) return
     try {
-      const res = await axios.get<WeatherData>(
-        `${VITE_BASE_WEATHER_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${VITE_OPENWEATHER_API_KEY}`
-      )
+      const res = await axios.get<WeatherData>(constructWeatherAPIUrl('weather', lat, lon))
       currentWeatherData.value = res.data
       return res.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async function fetchForecastWeatherData(lat: string, lon: string) {
     if (!lat || !lon) return
     try {
-      const res = await axios.get<Forecast>(
-        `${VITE_BASE_WEATHER_URL}/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${VITE_OPENWEATHER_API_KEY}`
-      )
+      const res = await axios.get<Forecast>(constructWeatherAPIUrl('forecast', lat, lon))
       forecastData.value = res.data
       return res.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
