@@ -35,15 +35,11 @@ const sortedForecast = computed(() => {
 
 async function fetchWeatherAndForecastData() {
   loading.value = true
+  const lat = selectedLocation.value?.lat || ''
+  const lon = selectedLocation.value?.lon || ''
   await Promise.all([
-    weatherStore.fetchWeatherData(
-      selectedLocation.value?.lat || '',
-      selectedLocation.value?.lon || ''
-    ),
-    weatherStore.fetchForecastWeatherData(
-      selectedLocation.value?.lat || '',
-      selectedLocation.value?.lon || ''
-    )
+    weatherStore.fetchWeatherData(lat, lon),
+    weatherStore.fetchForecastWeatherData(lat, lon)
   ])
   loading.value = false
 }
