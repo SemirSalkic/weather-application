@@ -70,7 +70,7 @@ onClickOutside(target, () => (closeList.value = true))
     <nav class="container flex items-center justify-between gap-4 py-6 text-white">
       <div class="flex flex-1 items-center gap-6 lg:flex-none lg:basis-3/4">
         <RouterLink :to="{ name: RouteName.Home }" class="flex items-center gap-2">
-          <SunIcon class="h-7 w-7 text-yellow-400" />
+          <SunIcon class="text-icon-color h-7 w-7" />
           <span class="hidden text-lg font-bold md:block">Weather Application</span>
         </RouterLink>
         <div ref="target" class="relative flex-1">

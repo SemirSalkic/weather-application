@@ -5,7 +5,8 @@ export default {
     extend: {
       colors: {
         'weather-primary': '#261972',
-        'weather-secondary': '#0f172a'
+        'weather-secondary': '#0f172a',
+        'icon-color': '#faff00'
       }
     },
     screens: {
