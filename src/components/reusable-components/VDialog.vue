@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
-import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
+import VButtonIcon from '@/components/reusable-components/VButtonIcon.vue'
 
 defineOptions({
   inheritAttrs: false

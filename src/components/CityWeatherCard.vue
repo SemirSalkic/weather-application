@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { timestampToDateTime, capitalizeFirstLetters } from '../util/index'
 import type { WeatherData, Location } from '@/stores/types'
-import VButtonIcon from '@/components/action-components/VButtonIcon.vue'
-import ConfirmationDialog from '@/components/action-components/ConfirmationDialog.vue'
+import VButtonIcon from '@/components/reusable-components/VButtonIcon.vue'
+import ConfirmationDialog from '@/components/reusable-components/ConfirmationDialog.vue'
 import { PlusCircleIcon, MinusCircleIcon, ArrowRightCircleIcon } from '@heroicons/vue/24/outline'
 import { useWeatherStore } from '@/stores/weather'
 import { storeToRefs } from 'pinia'

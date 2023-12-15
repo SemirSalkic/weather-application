@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import VDialog from '@/components/action-components/VDialog.vue'
-import VButton from '@/components/action-components/VButton.vue'
+import VDialog from '@/components/reusable-components/VDialog.vue'
+import VButton from '@/components/reusable-components/VButton.vue'
 
 const props = withDefaults(
   defineProps<{
