@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const execa = require('execa')
-const fs = require('fs')
+import execa from 'execa'
+import fs from 'fs'
 ;(async () => {
   try {
     await execa('git', ['checkout', '--orphan', 'gh-pages'])
@@ -21,6 +21,6 @@ const fs = require('fs')
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e.message)
-    process.exit(1)
+    execa.process.exit(1)
   }
 })()
