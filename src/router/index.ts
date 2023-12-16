@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CityWeatherView from '../views/CityWeatherView.vue'
+import PageNotFoundView from '../views/PageNotFoundView.vue'
 
 export const enum RouteName {
   Home = 'Home',
-  CityWeatherView = 'CityWeatherView'
+  CityWeatherView = 'CityWeatherView',
+  PageNotFound = 'PageNotFound'
 }
 
 const router = createRouter({
@@ -23,6 +25,10 @@ const router = createRouter({
         locationId: route.query.locationId,
         locationName: route.query.locationName
       })
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: PageNotFoundView
     }
   ]
 })
