@@ -41,18 +41,23 @@ This application is designed to provide you with real-time weather updates and a
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar). The extension provides syntax highlighting, TypeScript support, and intellisense for template expressions and component props.
 
 ## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+In editors, we need [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + built-in `TypeScript and JavaScript Language Features` extension to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Install [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) and if you don't have `TypeScript and JavaScript Language Features` extension enabled, follow these steps:
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette.
+2. Find `TypeScript and JavaScript Language Features`, right click and select `Enable`
+3. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+To avoid conflicts, disable the Vetur and Volar extensions if installed. Here's how:
+
+1. Click on the Extensions view icon on the Sidebar or press `Ctrl+Shift+X`.
+2. Find `Vetur` or `TypeScript Vue Plugin (Volar)`, right click and select `Disable (Workspace)`.
+3. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
 
