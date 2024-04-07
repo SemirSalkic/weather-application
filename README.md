@@ -1,3 +1,5 @@
+[Read this document in Bosnian](README.bih.md)
+
 # Weather Application
 
 Welcome to our weather application! This application offers a user-friendly platform to keep track of the weather conditions in your favorite cities.

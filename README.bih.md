@@ -1,3 +1,5 @@
+[Pročitajte ovaj dokument na Engleskom jeziku](README.md)
+
 # Aplikacija za Vremensku prognozu
 
 Dobrodošli u našu aplikaciju za vremensku prognozu! Ova aplikacija nudi korisnički prijateljsku platformu za praćenje vremenskih uslova u vašim omiljenim gradovima.
