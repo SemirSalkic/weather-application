@@ -36,7 +36,7 @@ const windSpeed = computed(() => props.forecastData?.wind?.speed)
       <span class="hidden text-xs md:block md:text-sm">{{ description }}</span>
       <div class="col-span-2 flex flex-col text-xs md:col-span-1 md:text-sm">
         <span>Humidity: {{ humidity }}%</span>
-        <span>Wind Speed: {{ windSpeed }}km/h</span>
+        <span>Wind Speed: {{ windSpeed }}m/s</span>
       </div>
     </div>
   </div>
