@@ -49,7 +49,12 @@ onMounted(async () => {
           title="You haven't added any locations to your favorites yet. Start exploring and add some!"
         ></InformationContainer>
       </div>
-      <div v-for="item in locationWeatherList" v-else :key="item.cityWeatherData.id" class="mb-6">
+      <div
+        v-for="item in locationWeatherList"
+        v-else
+        :key="item.cityWeatherData.id"
+        class="mx-4 mb-6"
+      >
         <CityWeatherCard
           :location="item.locationData"
           :current-weather="item.cityWeatherData"
