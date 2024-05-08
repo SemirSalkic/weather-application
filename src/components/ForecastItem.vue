@@ -34,7 +34,7 @@ const windSpeed = computed(() => props.forecastData?.wind?.speed)
       <span class="text-xs font-semibold md:text-base">{{ temperature }}</span>
       <img class="h-auto w-16 justify-self-center" :src="iconUrl" :alt="description" />
       <span class="hidden text-xs md:block md:text-sm">{{ description }}</span>
-      <div class="col-span-2 flex flex-col text-xs md:col-span-1 md:text-sm">
+      <div class="col-span-2 flex flex-col pr-1 text-xs md:col-span-1 md:text-sm">
         <span>Humidity: {{ humidity }}%</span>
         <span>Wind Speed: {{ windSpeed }}m/s</span>
       </div>
